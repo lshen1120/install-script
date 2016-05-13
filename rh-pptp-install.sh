@@ -52,8 +52,8 @@ sed -i '70a ms-dns 8.8.8.8'    /etc/ppp/options.pptpd
  
  
 # setting up pptpd.conf
-sed -i '101a localip 192.168.9.1'    /etc/pptpd.conf
-sed -i '102a  remoteip 192.168.9.11-30'    /etc/pptpd.conf
+sed -i '101a localip 172.16.1.1'    /etc/pptpd.conf
+sed -i '102a  remoteip 172.16.1.2-254'    /etc/pptpd.conf
  
 # adding new user
 echo "$u * $p *" >> /etc/ppp/chap-secrets
