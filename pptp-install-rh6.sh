@@ -67,10 +67,10 @@ echo "######################################################"
 
 # eth1 要替换成对应的外网网卡
 iptables -t nat -A POSTROUTING -s 172.16.1.0/24 -o eth1 -j  MASQUERADE
-iptables-save
+/etc/init.d/iptables save
 
 #开机自启动
-chkconfig --level 2345 pptpd on
+chkconfig --level pptpd 2345 on
 
 echo
 echo "######################################################"
