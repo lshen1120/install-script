@@ -70,7 +70,7 @@ iptables -t nat -A POSTROUTING -s 172.16.1.0/24 -o eth1 -j  MASQUERADE
 /etc/init.d/iptables save
 
 #开机自启动
-chkconfig --level pptpd 2345 on
+chkconfig --level 2345 pptpd on
 
 echo
 echo "######################################################"
