@@ -65,8 +65,8 @@ echo "######################################################"
 echo "Updating IPtables Routing and Enabling it on boot"
 echo "######################################################"
 
-# eth0 要替换成对应的外网网卡
-iptables -t nat -A POSTROUTING -s 172.16.1.0/24 -o eth0 -j  MASQUERADE
+# eth1 要替换成对应的外网网卡
+iptables -t nat -A POSTROUTING -s 172.16.1.0/24 -o eth1 -j  MASQUERADE
 iptables-save
 
 #开机自启动
