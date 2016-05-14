@@ -1,8 +1,5 @@
 #!/bin/bash
-# Interactive pptp vpn  install script for an OpenVZ VPS
 # surport  : Cenost ,Fedora  6.x 
-# Augest 24, 2014 v1.00
-#url ：   http://www.dabu.info/?p=2178
  
 echo "######################################################"
 echo "Interactive PoPToP Install Script for an OpenVZ VPS"
@@ -47,10 +44,6 @@ cp /etc/ppp/options.pptpd /etc/ppp/options.pptpd.bak
 sed -i '70a ms-dns 8.8.8.8'    /etc/ppp/options.pptpd
  
  
- 
- 
- 
- 
 # setting up pptpd.conf
 sed -i '101a localip 172.16.1.1'    /etc/pptpd.conf
 sed -i '102a  remoteip 172.16.1.2-254'    /etc/pptpd.conf
@@ -71,27 +64,21 @@ echo
 echo "######################################################"
 echo "Updating IPtables Routing and Enabling it on boot"
 echo "######################################################"
-iptables -t nat -A POSTROUTING -o eth0 -j  MASQUERADE
-# saves iptables routing rules and enables them on-boot
-iptables-save > /etc/iptables.conf
- 
-cat > /etc/network/if-pre-up.d/iptables <<END
-#!/bin/sh
-iptables-restore < /etc/iptables.conf
-END
- 
-chmod +x /etc/network/if-pre-up.d/iptables
-cat >> /etc/ppp/ip-up <<END
-ifconfig ppp0 mtu 1400
-END
- 
+
+# eth0 要替换成对应的外网网卡
+iptables -t nat -A POSTROUTING -s 172.16.1.0/24 -o eth0 -j  MASQUERADE
+iptables-save
+
+#开机自启动
+chkconfig --level pptpd 2345 on
+
 echo
 echo "######################################################"
 echo "Restarting PoPToP"
 echo "######################################################"
 sleep 5
 /etc/init.d/pptpd restart
- 
+
 echo
 echo "######################################################"
 echo "Server setup complete!"
